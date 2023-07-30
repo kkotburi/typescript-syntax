@@ -108,7 +108,7 @@ const pickUpOrder = (user: User, orderId: number): void => {
   if (order && order.status === "completed") {
     order.status = "picked-up";
     console.log(
-      `[관리자 안내] 고객 ID[${order.customerId}]님이 주문ID[${orderId}]을 수령했습니다.`
+      `[관리자 안내] 고객 ID[${order.customerId}]님이 주문 ID[${orderId}]을 수령했습니다.`
     );
   }
 };
@@ -123,13 +123,13 @@ const main = () => {
   // user 생성
   const member1: User = {
     id: 2,
-    name: "rtani",
+    name: "jennie",
     role: "customer",
   };
 
   const member2: User = {
     id: 3,
-    name: "dreaming developer",
+    name: "rose",
     role: "customer",
   };
 

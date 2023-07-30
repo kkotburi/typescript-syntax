@@ -8,21 +8,21 @@ abstract class User {
   abstract getRole(): Role;
 }
 
-class Member extends User {
-  constructor(name: string, age: number) {
-    super(name, age);
-  }
-  getRole(): Role {
-    return Role.MEMBER;
-  }
-}
-
 class Librarian extends User {
   constructor(name: string, age: number) {
     super(name, age);
   }
   getRole(): Role {
     return Role.LIBRARIAN;
+  }
+}
+
+class Member extends User {
+  constructor(name: string, age: number) {
+    super(name, age);
+  }
+  getRole(): Role {
+    return Role.MEMBER;
   }
 }
 
@@ -36,10 +36,10 @@ class Book {
 
 interface RentManager {
   getBooks(): Book[]; // 도서관의 현재 도서 목록을 확인하는 함수
-  addBook(user: Librarian, book: Book): void; // 사서가 도서관에 새로운 도서를 입고할 때 호출하는 함수
-  removeBook(user: Librarian, book: Book): void; // 사서가 도서관에서 도서를 폐기할 때 호출하는 함수
-  rentBook(user: Member, book: Book): void; // 사용자가 책을 빌릴 때 호출하는 함수
-  returnBook(user: Member, book: Book): void; // 사용자가 책을 반납할 때 호출하는 함수
+  addBook(user: User, book: Book): void; // 사서가 도서관에 새로운 도서를 입고할 때 호출하는 함수
+  removeBook(user: User, book: Book): void; // 사서가 도서관에서 도서를 폐기할 때 호출하는 함수
+  rentBook(user: User, book: Book): void; // 사용자가 책을 빌릴 때 호출하는 함수
+  returnBook(user: User, book: Book): void; // 사용자가 책을 반납할 때 호출하는 함수
 }
 
 class Library implements RentManager {
@@ -72,7 +72,7 @@ class Library implements RentManager {
     }
   }
 
-  rentBook(user: Member, book: Book): void {
+  rentBook(user: User, book: Book): void {
     if (user.getRole() !== Role.MEMBER) {
       console.log("user만 도서를 대여할 수 있습니다.");
       return;
@@ -88,7 +88,7 @@ class Library implements RentManager {
     }
   }
 
-  returnBook(user: Member, book: Book): void {
+  returnBook(user: User, book: Book): void {
     if (user.getRole() !== Role.MEMBER) {
       console.log("user만 도서를 반납할 수 있습니다.");
       return;
@@ -105,9 +105,9 @@ class Library implements RentManager {
 
 const main = () => {
   const myLibrary = new Library();
-  const librarian = new Librarian("rtani", 30);
-  const member1 = new Member("developer", 38);
-  const member2 = new Member("reader", 25);
+  const librarian = new Librarian("rtani", 27);
+  const member1 = new Member("developer", 25);
+  const member2 = new Member("reader", 30);
 
   const book1 = new Book("TypeScript 문법 종합반", "강창민", new Date());
   const book2 = new Book("금쪽이 훈육하기", "오은영", new Date());
